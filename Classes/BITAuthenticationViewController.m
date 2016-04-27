@@ -288,7 +288,7 @@
   
   __weak typeof(self) weakSelf = self;
   [self.delegate authenticationViewController:self
-                handleAuthenticationWithEmail:self.email
+                handleAuthenticationWithEmail:[self.email stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
                                      password:self.password
                                    completion:^(BOOL succeeded, NSError *error) {
                                      if(succeeded) {
