@@ -94,4 +94,11 @@
  */
 - (void)prepareWithItems:(NSArray *)items;
 
+/**
+ Sets the '_shouldAskUserData' variable.
+ 
+ @param shouldAskUserData BOOL to set if the compose view should ask for the userdata first when displaying the view
+ */
+
+- (void)setShouldAskUserData:(BOOL)shouldAskUserData;
 @end

@@ -81,6 +81,7 @@
   BOOL _blockUserDataScreen;
   
   BOOL _actionSheetVisible;
+  BOOL _shouldAskUserData;
 }
 
 
@@ -91,6 +92,7 @@
   if (self) {
     _blockUserDataScreen = NO;
     _actionSheetVisible = NO;
+    _shouldAskUserData = NO;
     _delegate = nil;
     _manager = [BITHockeyManager sharedHockeyManager].feedbackManager;
     _attachments = [NSMutableArray new];
@@ -146,6 +148,9 @@
   }
 }
 
+- (void)setShouldAskUserData:(BOOL)shouldAskUserData {
+  _shouldAskUserData = shouldAskUserData;
+}
 
 #pragma mark - Keyboard
 
@@ -309,7 +314,8 @@
   
   if ([self.manager askManualUserDataAvailable] &&
       ([self.manager requireManualUserDataMissing] ||
-       ![self.manager didAskUserData])
+       ![self.manager didAskUserData] ||
+       _shouldAskUserData )
       ) {
     if (!_blockUserDataScreen)
       [self setUserDataAction];
