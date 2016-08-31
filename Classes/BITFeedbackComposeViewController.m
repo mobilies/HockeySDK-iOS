@@ -624,7 +624,7 @@
 
 - (void)userDataUpdateFinished {
   [self.manager saveMessages];
-  
+  [self setShouldAskUserData:NO];
   [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
