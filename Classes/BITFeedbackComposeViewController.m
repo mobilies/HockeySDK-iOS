@@ -620,6 +620,7 @@
   } else {
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
   }
+    [self dismissWithResult:BITFeedbackComposeResultCancelled];
 }
 
 - (void)userDataUpdateFinished {
