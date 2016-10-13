@@ -1110,7 +1110,7 @@ typedef void (^BITLatestImageFetchCompletionBlock)(UIImage *_Nonnull latestImage
   if ([pendingMessages count] > 0) {
     
     // we send one message at a time
-    BITFeedbackMessage *messageToSend = pendingMessages[0];
+    BITFeedbackMessage *messageToSend = pendingMessages.lastObject;
     
     [messageToSend setStatus:BITFeedbackMessageStatusSendInProgress];
     if (self.userID)
@@ -1136,6 +1136,7 @@ typedef void (^BITLatestImageFetchCompletionBlock)(UIImage *_Nonnull latestImage
                            // inform the UI to update its data in case the list is already showing
                            [[NSNotificationCenter defaultCenter] postNotificationName:BITHockeyFeedbackMessagesLoadingFinished object:nil];
                          }];
+    [self submitPendingMessages];
   }
 }
 
