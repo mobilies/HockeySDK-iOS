@@ -1090,6 +1090,10 @@ typedef void (^BITLatestImageFetchCompletionBlock)(UIImage *_Nonnull latestImage
                        }];
 }
 
+- (void)sendPendingFeedbackMessages {
+  [self submitPendingMessages];
+}
+
 - (void)submitPendingMessages {
   if (_networkRequestInProgress) {
     [[self class] cancelPreviousPerformRequestsWithTarget:self selector:@selector(submitPendingMessages) object:nil];
@@ -1104,6 +1108,7 @@ typedef void (^BITLatestImageFetchCompletionBlock)(UIImage *_Nonnull latestImage
   NSArray *pendingMessages = [self messagesWithStatus:BITFeedbackMessageStatusSendPending];
   
   if ([pendingMessages count] > 0) {
+    
     // we send one message at a time
     BITFeedbackMessage *messageToSend = pendingMessages[0];
     
