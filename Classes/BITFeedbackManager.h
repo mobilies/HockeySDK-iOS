@@ -288,7 +288,7 @@ typedef NS_ENUM(NSInteger, BITFeedbackObservationMode) {
  */
 - (UIImage *)screenshot;
 
-
+- (void)sendPendingFeedbackMessages;
 /**
  Present the modal feedback list user interface.
  

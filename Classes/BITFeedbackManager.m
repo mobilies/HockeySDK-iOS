@@ -1090,6 +1090,10 @@ typedef void (^BITLatestImageFetchCompletionBlock)(UIImage *_Nonnull latestImage
                        }];
 }
 
+- (void)sendPendingFeedbackMessages {
+  [self submitPendingMessages];
+}
+
 - (void)submitPendingMessages {
   if (_networkRequestInProgress) {
     [[self class] cancelPreviousPerformRequestsWithTarget:self selector:@selector(submitPendingMessages) object:nil];
@@ -1104,8 +1108,9 @@ typedef void (^BITLatestImageFetchCompletionBlock)(UIImage *_Nonnull latestImage
   NSArray *pendingMessages = [self messagesWithStatus:BITFeedbackMessageStatusSendPending];
   
   if ([pendingMessages count] > 0) {
+    
     // we send one message at a time
-    BITFeedbackMessage *messageToSend = pendingMessages[0];
+    BITFeedbackMessage *messageToSend = pendingMessages.lastObject;
     
     [messageToSend setStatus:BITFeedbackMessageStatusSendInProgress];
     if (self.userID)
@@ -1131,6 +1136,7 @@ typedef void (^BITLatestImageFetchCompletionBlock)(UIImage *_Nonnull latestImage
                            // inform the UI to update its data in case the list is already showing
                            [[NSNotificationCenter defaultCenter] postNotificationName:BITHockeyFeedbackMessagesLoadingFinished object:nil];
                          }];
+    [self submitPendingMessages];
   }
 }
 
