@@ -63,6 +63,7 @@ This document contains the following sections:
 
 1. We assume that you already have a project in Xcode and that this project is opened in Xcode 7 or later.
 2. The SDK supports iOS 6.0 and later.
+3. Xcode 8 
 
 <a id="setup"></a>
 ## 2. Setup
@@ -161,7 +162,7 @@ Our examples will use the **default** SDK (`HockeySDK.embeddedframework`).
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool
   ```
 
-4. Add the following lines to setup and start the Application Insights SDK:
+4. Add the following lines to setup and start the HockeyApp SDK:
 
   ```swift
   BITHockeyManager.shared().configure(withIdentifier: "cdef2c2b4ddf420b9cdf470a9667eb27")
