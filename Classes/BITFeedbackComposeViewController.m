@@ -42,6 +42,7 @@
 
 #import "BITHockeyHelper.h"
 
+#import "RotatingUIImagePickerController.h"
 #import "BITImageAnnotationViewController.h"
 #import "BITHockeyAttachment.h"
 
@@ -501,7 +502,7 @@
   self.isStatusBarHiddenBeforeShowingPhotoPicker = @([[UIApplication sharedApplication] isStatusBarHidden]);
   
   // add photo.
-  UIImagePickerController *pickerController = [[UIImagePickerController alloc] init];
+  RotatingUIImagePickerController *pickerController = [[RotatingUIImagePickerController alloc] init];
   pickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
   pickerController.delegate = self;
   pickerController.editing = NO;
