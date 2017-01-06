@@ -42,6 +42,7 @@
 
 #import "BITHockeyHelper.h"
 
+#import "RotatingUIImagePickerController.h"
 #import "BITImageAnnotationViewController.h"
 #import "BITHockeyAttachment.h"
 
@@ -198,12 +199,13 @@
   [self.contentViewContainer setFrame:frame];
   
   [self performSelector:@selector(refreshAttachmentScrollview) withObject:nil afterDelay:0.0f];
-  
+  self.textView.inputAccessoryView.hidden = FALSE;
 }
 
 - (void)keyboardWillBeHidden:(NSNotification*)aNotification {
   CGRect frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
   [self.contentViewContainer setFrame:frame];
+  self.textView.inputAccessoryView.hidden = TRUE;
 }
 
 
@@ -255,10 +257,9 @@
     [self.textAccessoryView addSubview:self.addPhotoButton];
   }
   
-  
-  
   if (!self.hideImageAttachmentButton) {
     self.textView.inputAccessoryView = self.textAccessoryView;
+
   }
   
   // This could be a subclass, yet
@@ -501,7 +502,7 @@
   self.isStatusBarHiddenBeforeShowingPhotoPicker = @([[UIApplication sharedApplication] isStatusBarHidden]);
   
   // add photo.
-  UIImagePickerController *pickerController = [[UIImagePickerController alloc] init];
+  RotatingUIImagePickerController *pickerController = [[RotatingUIImagePickerController alloc] init];
   pickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
   pickerController.delegate = self;
   pickerController.editing = NO;
