@@ -46,6 +46,11 @@
 #import "BITHockeyAttachment.h"
 
 
+@interface RotatingUIImagePickerController : UIImagePickerController
+-(id)init;
+@property (nonatomic) BOOL supportsLandscape;
+@end
+
 @interface BITFeedbackComposeViewController () <BITFeedbackUserDataDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, BITImageAnnotationDelegate> {
 }
 
@@ -198,12 +203,14 @@
   [self.contentViewContainer setFrame:frame];
   
   [self performSelector:@selector(refreshAttachmentScrollview) withObject:nil afterDelay:0.0f];
+  self.textView.inputAccessoryView.hidden = NO;
   
 }
 
 - (void)keyboardWillBeHidden:(NSNotification*)aNotification {
   CGRect frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
   [self.contentViewContainer setFrame:frame];
+  self.textView.inputAccessoryView.hidden = YES;
 }
 
 
@@ -422,7 +429,7 @@
   }
   
   if(self.addPhotoButton) {
-    if (self.imageAttachments.count > 2){
+    if (self.imageAttachments.count > 5){
       [self.addPhotoButton setEnabled:NO];
     } else {
       [self.addPhotoButton setEnabled:YES];
@@ -501,7 +508,7 @@
   self.isStatusBarHiddenBeforeShowingPhotoPicker = @([[UIApplication sharedApplication] isStatusBarHidden]);
   
   // add photo.
-  UIImagePickerController *pickerController = [[UIImagePickerController alloc] init];
+  RotatingUIImagePickerController *pickerController = [[RotatingUIImagePickerController alloc] init];
   pickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
   pickerController.delegate = self;
   pickerController.editing = NO;
@@ -710,4 +717,25 @@
 
 @end
 
+
+@implementation RotatingUIImagePickerController
+
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+  if(!_supportsLandscape){
+    return UIInterfaceOrientationMaskPortrait;
+  } else {
+    return UIInterfaceOrientationMaskAll;
+  }
+}
+- (id)init {
+  self = [super init];
+  if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+    _supportsLandscape = NO;
+  } else {
+    _supportsLandscape = YES;
+  }
+  return self;
+}
+
+@end
 #endif /* HOCKEYSDK_FEATURE_FEEDBACK */
