@@ -467,6 +467,7 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
     // set defaults
     self.showDirectInstallOption = NO;
     self.alwaysShowUpdateReminder = YES;
+    self.shouldShowUpdateReminder = YES;
     self.checkForUpdateOnLaunch = YES;
     self.updateSetting = BITUpdateCheckStartup;
     
@@ -834,7 +835,7 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
     if ([self expiryDateReached]) return;
     if (![self installationIdentified]) return;
     
-    if (self.isUpdateAvailable && [self hasNewerMandatoryVersion]) {
+    if (self.isUpdateAvailable && [self hasNewerMandatoryVersion] && self.shouldShowUpdateReminder) {
       [self showCheckForUpdateAlert];
     }
     
@@ -1151,7 +1152,7 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
         }
         
         if (self.isUpdateAvailable && (self.alwaysShowUpdateReminder || newVersionDiffersFromCachedVersion || [self hasNewerMandatoryVersion])) {
-          if (_updateAvailable && !_currentHockeyViewController) {
+          if (_updateAvailable && !_currentHockeyViewController && self.shouldShowUpdateReminder) {
             [self showCheckForUpdateAlert];
           }
         }
