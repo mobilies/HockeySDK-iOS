@@ -155,6 +155,15 @@ typedef NS_ENUM (NSUInteger, BITUpdateSetting) {
  */
 @property (nonatomic, assign) BOOL alwaysShowUpdateReminder;
 
+/**
+ Flag that determines if update alerts should be shown at all
+ If enabled, functions as with alwaysShowUpdateReminder
+ if disabled, the updates popup is never shown
+ 
+ Default : YES
+ 
+ */
+@property (nonatomic, assign) BOOL shouldShowUpdateReminder;
 
 /**
  Flag that determines if the update alert should show a direct install option
