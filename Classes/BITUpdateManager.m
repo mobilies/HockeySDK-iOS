@@ -81,6 +81,7 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
   
   NSString *_blockingScreenMessage;
   NSDate *_lastUpdateCheckFromBlockingScreen;
+  BOOL _shouldShowUpdateReminder;
 }
 
 
@@ -463,11 +464,11 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
     _firstStartAfterInstall = NO;
     _companyName = nil;
     _currentAppVersionUsageTime = @0;
-    
+    _shouldShowUpdateReminder = NO;
+
     // set defaults
     self.showDirectInstallOption = NO;
     self.alwaysShowUpdateReminder = YES;
-    self.shouldShowUpdateReminder = NO;
     self.checkForUpdateOnLaunch = YES;
     self.updateSetting = BITUpdateCheckStartup;
     
@@ -835,7 +836,7 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
     if ([self expiryDateReached]) return;
     if (![self installationIdentified]) return;
     
-    if (self.isUpdateAvailable && [self hasNewerMandatoryVersion] && self.shouldShowUpdateReminder) {
+    if (self.isUpdateAvailable && [self hasNewerMandatoryVersion] && _shouldShowUpdateReminder) {
       [self showCheckForUpdateAlert];
     }
     
@@ -1152,7 +1153,7 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
         }
         
         if (self.isUpdateAvailable && (self.alwaysShowUpdateReminder || newVersionDiffersFromCachedVersion || [self hasNewerMandatoryVersion])) {
-          if (_updateAvailable && !_currentHockeyViewController && self.shouldShowUpdateReminder) {
+          if (_updateAvailable && !_currentHockeyViewController && _shouldShowUpdateReminder) {
             [self showCheckForUpdateAlert];
           }
         }
