@@ -467,7 +467,7 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
     // set defaults
     self.showDirectInstallOption = NO;
     self.alwaysShowUpdateReminder = YES;
-    self.shouldShowUpdateReminder = YES;
+    self.shouldShowUpdateReminder = NO;
     self.checkForUpdateOnLaunch = YES;
     self.updateSetting = BITUpdateCheckStartup;
     
