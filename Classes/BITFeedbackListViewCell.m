@@ -88,6 +88,7 @@
   if (self) {
     // Initialization code
     _backgroundStyle = BITFeedbackListViewCellBackgroundStyleNormal;
+    _style = BITFeedbackListViewCellPresentationStyleDefault;
     
     _message = nil;
     
@@ -163,9 +164,17 @@
 - (UIColor *)backgroundColor {
   
   if (self.backgroundStyle == BITFeedbackListViewCellBackgroundStyleNormal) {
-    return BACKGROUNDCOLOR_DEFAULT_OS7;
+    if (self.style == BITFeedbackListViewCellPresentationStyleDefault) {
+      return BACKGROUNDCOLOR_DEFAULT;
+    } else {
+      return BACKGROUNDCOLOR_DEFAULT_OS7;
+    }
   } else {
-    return BACKGROUNDCOLOR_ALTERNATE_OS7;
+    if (self.style == BITFeedbackListViewCellPresentationStyleDefault) {
+      return BACKGROUNDCOLOR_ALTERNATE;
+    } else {
+      return BACKGROUNDCOLOR_ALTERNATE_OS7;
+    }
   }
 }
 
@@ -265,7 +274,9 @@
     self.accessoryBackgroundView.backgroundColor = [self backgroundColor];
   }
   
-  if (self.accessoryBackgroundView.superview){
+  if (self.style == BITFeedbackListViewCellPresentationStyleDefault) {
+    [self addSubview:self.accessoryBackgroundView];
+  } else if (self.accessoryBackgroundView.superview){
     [self.accessoryBackgroundView removeFromSuperview];
   }
   self.contentView.backgroundColor = [self backgroundColor];
@@ -356,11 +367,6 @@
   }
 }
 
-- (NSString *)accessibilityLabel {
-  NSString *messageTime = [self.labelTitle accessibilityLabel];
-  NSString *messageText = [self.labelText accessibilityLabel];
-  return [NSString stringWithFormat:@"%@, %@", messageTime, messageText];
-}
 
 @end
 

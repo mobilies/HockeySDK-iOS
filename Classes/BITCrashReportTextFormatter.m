@@ -202,7 +202,7 @@ NSString *const BITXamarinStackTraceDelimiter = @"Xamarin Exception Stack:";
  * the formatted result as a string.
  *
  * @param report The report to format.
- * @param crashReporterKey The crash reporter key.
+ * @param textFormat The text format to use.
  *
  * @return Returns the formatted result on success, or nil if an error occurs.
  */
@@ -628,7 +628,7 @@ NSString *const BITXamarinStackTraceDelimiter = @"Xamarin Exception Stack:";
  *
  *  @param regName The name of the register to use for getting the address
  *  @param thread  The crashed thread
- *  @param report  The crash report.
+ *  @param images  NSArray of binary images
  *
  *  @return The selector as a C string or NULL if no selector was found
  */
@@ -901,7 +901,7 @@ NSString *const BITXamarinStackTraceDelimiter = @"Xamarin Exception Stack:";
  *  This is only necessary when sending crashes from the simulator as the path
  *  then contains the username of the Mac the simulator is running on.
  *
- *  @param path A string containing the username.
+ *  @param processPath A string containing the username
  *
  *  @return An anonymized string where the real username is replaced by "USER"
  */

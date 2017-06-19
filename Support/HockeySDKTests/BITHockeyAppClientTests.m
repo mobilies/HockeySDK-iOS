@@ -1,6 +1,6 @@
 //
-//  BITHockeyAppClientTests.m
-//  HockeySDK
+//  BITHockeyAppClientTests
+//  HockeySDKTests
 //
 //  Created by Stephan Diederich on 06.09.13.
 //

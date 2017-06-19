@@ -113,7 +113,17 @@ static NSString *const kBITCrashMetaAttachment = @"BITCrashMetaAttachment";
 
 - (void)testPersistAttachment {
   NSString *filename = @"TestAttachment";
-  NSData *data = [[NSData alloc] initWithBase64EncodedString:@"TestData" options:0];
+  NSData *data = nil;
+  
+#if __IPHONE_OS_VERSION_MIN_REQUIRED > __IPHONE_7_1
+  data = [[NSData alloc] initWithBase64EncodedString:@"TestData" options:0];
+#else
+  if ([[NSData class] respondsToSelector:@selector(initWithBase64EncodedString:options:)]) {
+    data = [[NSData alloc] initWithBase64EncodedString:@"TestData" options:0];
+  } else {
+    data = [[NSData alloc] initWithBase64Encoding:@"TestData"];
+  }
+#endif
 
   NSString* type = @"text/plain";
   

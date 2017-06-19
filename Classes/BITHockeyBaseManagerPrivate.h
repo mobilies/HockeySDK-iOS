@@ -43,6 +43,9 @@
 
 - (void)startManager;
 
+/** Check if the device is running an iOS version previous to iOS 7 */
+- (BOOL)isPreiOS7Environment;
+
 /** 
  * by default, just logs the message
  *

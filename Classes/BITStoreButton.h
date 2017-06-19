@@ -57,9 +57,13 @@
  */
 typedef NS_ENUM(NSUInteger, BITStoreButtonStyle) {
   /**
+   * Default is iOS 6 style
+   */
+  BITStoreButtonStyleDefault = 0,
+  /**
    * Draw buttons in the iOS 7 style
    */
-  BITStoreButtonStyleOS7 = 0
+  BITStoreButtonStyleOS7 = 1
 };
 
 
