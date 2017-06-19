@@ -244,6 +244,7 @@
   self.textView.backgroundColor = [UIColor whiteColor];
   self.textView.returnKeyType = UIReturnKeyDefault;
   self.textView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+  self.textView.accessibilityHint = BITHockeyLocalizedString(@"HockeyAccessibilityHintRequired");
   
   [self.contentViewContainer addSubview:self.textView];
   
@@ -512,6 +513,7 @@
   pickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
   pickerController.delegate = self;
   pickerController.editing = NO;
+  pickerController.navigationBar.barStyle = self.manager.barStyle;
   [self presentViewController:pickerController animated:YES completion:nil];
 }
 
@@ -676,7 +678,7 @@
     BITFeedbackMessageAttachment *attachment = self.imageAttachments[self.selectedAttachmentIndex];
     BITImageAnnotationViewController *annotationEditor = [[BITImageAnnotationViewController alloc ] init];
     annotationEditor.delegate = self;
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:annotationEditor];
+    UINavigationController *navController = [self.manager customNavigationControllerWithRootViewController:annotationEditor presentationStyle:UIModalPresentationFullScreen];
     annotationEditor.image = attachment.imageRepresentation;
     [self presentViewController:navController animated:YES completion:nil];
   }
