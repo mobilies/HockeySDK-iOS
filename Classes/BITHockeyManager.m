@@ -52,6 +52,7 @@ bitstadium_info_t bitstadium_library_info __attribute__((section("__TEXT,__bit_h
   .hockey_build = BITHOCKEY_C_BUILD
 };
 
+
 #if HOCKEYSDK_FEATURE_CRASH_REPORTER
 #import "BITCrashManagerPrivate.h"
 #endif /* HOCKEYSDK_FEATURE_CRASH_REPORTER */
@@ -219,6 +220,7 @@ bitstadium_info_t bitstadium_library_info __attribute__((section("__TEXT,__bit_h
   [self initializeModules];
 }
 
+
 - (void)startManager {
   if (!_validAppIdentifier) return;
   if (_startManagerIsInvoked) {
@@ -321,6 +323,7 @@ bitstadium_info_t bitstadium_library_info __attribute__((section("__TEXT,__bit_h
   }
 #endif /* HOCKEYSDK_FEATURE_METRICS */
 }
+
 
 #if HOCKEYSDK_FEATURE_UPDATES
 - (void)setDisableUpdateManager:(BOOL)disableUpdateManager {

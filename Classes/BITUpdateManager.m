@@ -537,7 +537,10 @@ typedef NS_ENUM(NSInteger, BITUpdateAlertViewTag) {
     BITHockeyLogDebug(@"INFO: Update view already visible, aborting");
     return;
   }
-    
+  
+  if ([self isPreiOS7Environment])
+    self.barStyle = UIBarStyleBlack;
+  
   BITUpdateViewController *updateViewController = [self hockeyViewController:YES];
   if ([self hasNewerMandatoryVersion] || [self expiryDateReached]) {
     [updateViewController setMandatoryUpdate: YES];

@@ -19,7 +19,7 @@
 
 ///
 /// Adds all members of this class to a dictionary
-/// @returns dictionary to which the members of this class will be added.
+/// @param dictionary to which the members of this class will be added.
 ///
 - (NSDictionary *)serializeToDictionary {
   NSMutableDictionary *dict = [super serializeToDictionary].mutableCopy;
