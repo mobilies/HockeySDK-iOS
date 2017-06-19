@@ -2,9 +2,9 @@
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Version](http://cocoapod-badges.herokuapp.com/v/HockeySDK/badge.png)](http://cocoadocs.org/docsets/HockeySDK)
 
-## Version 4.1.2
+## Version 4.1.5
 
-- [Changelog](http://www.hockeyapp.net/help/sdk/ios/4.1.2/docs/docs/Changelog.html)
+- [Changelog](http://www.hockeyapp.net/help/sdk/ios/4.1.5/docs/docs/Changelog.html)
 
 **NOTE** If your are using the binary integration of our SDK, make sure that the `HockeySDKResources.bundle` inside the `HockeySDK.embeddedframework`-folder has been added to your application.
 
@@ -23,7 +23,7 @@ HockeySDK-iOS implements support for using HockeyApp in your iOS applications.
 
 The following features are currently supported:
 
-1. **Collect crash reports:** If your app crashes, a crash log with the same format as from the Apple Crash Reporter is written to the device's storage. If the user starts the app again, he is asked to submit the crash report to HockeyApp. This works for both beta and live apps, i.e. those submitted to the App Store.
+1. **Collect crash reports:** If your app crashes, a crash log with the same format as from the Apple Crash Reporter is written to the device's storage. If the user starts the app again, they are asked to submit the crash report to HockeyApp. This works for both beta and live apps, i.e. those submitted to the App Store.
 
 2. **User Metrics:** Understand user behavior to improve your app. Track usage through daily and monthly active users, monitor crash impacted users, as well as customer engagement through session count.You can now track **Custom Events** in your app, understand user actions and see the aggregates on the HockeyApp portal.
 
@@ -62,7 +62,7 @@ This document contains the following sections:
 ## 1. Requirements
 
 1. We assume that you already have a project in Xcode and that this project is opened in Xcode 7 or later.
-2. The SDK supports iOS 6.0 and later.
+2. The SDK supports iOS 7.0 and later.
 
 <a id="setup"></a>
 ## 2. Setup
@@ -164,7 +164,7 @@ Our examples will use the **default** SDK (`HockeySDK.embeddedframework`).
 4. Add the following lines to setup and start the Application Insights SDK:
 
   ```swift
-  BITHockeyManager.shared().configure(withIdentifier: "cdef2c2b4ddf420b9cdf470a9667eb27")
+  BITHockeyManager.shared().configure(withIdentifier: "APP_IDENTIFIER")
   BITHockeyManager.shared().start()
   BITHockeyManager.shared().authenticator.authenticateInstallation() // This line is obsolete in the crash only builds
 
@@ -244,16 +244,22 @@ pod "HockeySDK"
 
 #### 3.2.1 Binary Distribution Options
 
-The default and recommended distribution is a binary (static library) and a resource bundle with translations and images for all SDK Features: Crash Reporting, User Feedback, Store Updates, Authentication, AdHoc Updates.
+The default and recommended distribution is a binary (static library) and a resource bundle with translations and images for all SDK Features.
 
-You can alternative use a Crash Reporting build only by using the following line in your `Podfile`:
+```ruby
+platform :ios, '8.0'
+pod "HockeySDK"
+```
 
-For the SDK with all features, add
+Will integrate the *default* configuration of the SDK, with all features except the Feedback feature.
+
+For the SDK with all features, including Feedback, add
 
 ```ruby
 pod "HockeySDK", :subspecs => ['AllFeaturesLib']
 ```
 to your podfile.
+
 To add the variant that only includes crash reporting, use
 
 ```ruby
@@ -268,7 +274,7 @@ pod "HockeySDK", :subspecs => ['CrashOnlyExtensionsLib']
 
 #### 3.2.2 Source Integration Options
 
-Alternatively you can integrate the SDK by source if you want to do any modifications or want a different feature set. The following entry will integrate the SDK:
+Alternatively you can integrate the SDK by source if you want to do modifications or want a different feature set. The following entry will integrate the SDK:
 
 ```ruby
 pod "HockeySDK-Source"
@@ -285,7 +291,19 @@ To add HockeySDK to your project, simply put this line into your `Cartfile`:
 
 and then follow the steps described in the [Carthage documentation](https://github.com/Carthage/Carthage#if-youre-building-for-ios-tvos-or-watchos).
 
-For now, this will integrate the **full-featured SDK** so you must include the `NSPhotoLibraryUsageDescription` and read the [feedback section](#feedback).
+This will integrate the **full-featured SDK** so you must include the `NSPhotoLibraryUsageDescription` and read the [feedback section](#feedback). If you want to include any other version of the SDK, version 4.1.4 added the ability to do that. You need to specify the configuration that you want to use
+
+#### Version without Feedback
+
+`carthage build --platform iOS --configuration ReleaseDefault HockeySDK-iOS`
+
+#### Crash-only Version
+
+`carthage build --platform iOS --configuration ReleaseCrashOnly HockeySDK-iOS`
+
+### Crash-only extension
+
+`carthage build --platform iOS --configuration ReleaseCrashOnlyExtension HockeySDK-iOS`
 
 <a id="extensions"></a>
 ### 3.4 iOS Extensions
@@ -389,7 +407,7 @@ The following options only show some of possibilities to interact and fine-tune 
 #### 3.6.1 Disable Crash Reporting
 The HockeySDK enables crash reporting **per default**. Crashes will be immediately sent to the server the next time the app is launched.
 
-To provide you with the best crash reporting, we are using [PLCrashReporter]("https://github.com/plausiblelabs/plcrashreporter") in [Version 1.3 / Commit 05d34741d3a90bbed51214983110943831ae5943]("https://github.com/plausiblelabs/plcrashreporter/commit/05d34741d3a90bbed51214983110943831ae5943").
+To provide you with the best crash reporting, we are using a build of [PLCrashReporter]("https://github.com/plausiblelabs/plcrashreporter") based on [Version 1.2.1 / Commit 356901d7f3ca3d46fbc8640f469304e2b755e461]("https://github.com/plausiblelabs/plcrashreporter/commit/356901d7f3ca3d46fbc8640f469304e2b755e461").
 
 This feature can be disabled as follows:
 
@@ -633,8 +651,7 @@ To check if data is send properly to HockeyApp and also see some additional SDK 
 
 <a id="documentation"></a>
 ## 4. Documentation
-
-Our documentation can be found on [HockeyApp](http://hockeyapp.net/help/sdk/ios/4.1.2/index.html).
+Our documentation can be found on [HockeyApp](http://hockeyapp.net/help/sdk/ios/4.1.5/index.html).
 
 <a id="troubleshooting"></a>
 ## 5.Troubleshooting
@@ -648,7 +665,7 @@ Our documentation can be found on [HockeyApp](http://hockeyapp.net/help/sdk/ios/
   Make sure none of the following files are copied into your app bundle, check under app target, `Build Phases`, `Copy Bundle Resources` or in the `.app` bundle after building:
 
   - `HockeySDK.framework` (except if you build a dynamic framework version of the SDK yourself!)
-  - `de.bitstadium.HockeySDK-iOS-4.1.2.docset`
+  - `de.bitstadium.HockeySDK-iOS-4.1.5.docset`
 
 ### Feature are not working as expected
 
